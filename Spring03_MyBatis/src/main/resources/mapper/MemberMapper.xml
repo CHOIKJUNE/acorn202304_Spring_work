@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="member">
+ 
+ 	<delete id="delete" parameterType="int">
+ 		DELETE FROM members WHERE num = #{num}
+ 	</delete>
+ 	
+ 	<update id="update" parameterType="com.gura.spring03.member.dto.MemberDto">
+ 			UPDATE members SET name = #{name}, addr = #{addr} WHERE num = #{num}
+ 	</update>
+ 	
+ <!--  resultType은 Generic을 결정지어준다. 여기서는 MemberDto -->
+ 	<select id="getList" resultType="com.gura.spring03.member.dto.MemberDto">
+ 		SELECT num, name, addr FROM members ORDER BY num ASC
+ 	</select>
+ 	
+ 	<select id="getData" parameterType="int" resultType="com.gura.spring03.member.dto.MemberDto">
+ 		SELECT num, name, addr FROM members WHERE num = #{num}
+ 	</select>
+ 	
+ 	<insert id="insert" parameterType="com.gura.spring03.member.dto.MemberDto">
+ 	<!-- MemberDto의 필드명과 같으면 자동으로 바인딩 -->
+ 		INSERT INTO members(num, name, addr)VALUES(members_seq.NEXTVAL, #{name}, #{addr}) 
+ 	</insert>
+ </mapper>

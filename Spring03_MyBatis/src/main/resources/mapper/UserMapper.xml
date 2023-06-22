@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="users">
+ 	<insert id="insert" parameterType="com.gura.spring03.users.dto.UsersDto">
+ 		INSERT INTO users(id, pwd, email, profile, regdate)
+ 		VALUES(#{id}, #{pwd}, #{email}, #{profile}, #{regdate})
+ 	</insert>
+ 	
+ 	<select id="select" parameterType="String" resultType="com.gura.spring03.users.dto.UsersDto">
+ 		SELECT id, pwd, email, profile, regdate 
+ 		FROM users
+ 		WHERE id = #{id}
+ 	</select>
+ </mapper>
