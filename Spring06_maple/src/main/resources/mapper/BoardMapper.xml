@@ -10,5 +10,18 @@
          #{content}, 0, SYSDATE, 0)
    </insert>
    
+   <select id="getList" parameterType="boardDto" resultType="boardDto">
+   	SELECT num, title, writer, content, viewcount, regdate, agree, server, rnum
+	FROM 
+	(SELECT num, title, writer, content, viewcount, b.regdate, agree, u.server, ROWNUM as rnum
+	FROM maple_board b
+	INNER JOIN maple_users u on b.writer = u.id)
+	WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+   </select>
+   
+   <select id="getCount" resultType="int">
+	SELECT NVL(MAX(ROWNUM), 0)
+	FROM maple_board
+   </select>
 </mapper>
 
