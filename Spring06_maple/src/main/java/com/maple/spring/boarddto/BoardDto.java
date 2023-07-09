@@ -4,6 +4,7 @@ public class BoardDto {
 	private int num;
 	private String title;
 	private String writer;
+	private String server;
 	private String content;
 	private int viewCount;
 	private String regdate;
@@ -79,6 +80,10 @@ public class BoardDto {
 	public void setNextNum(int nextNum) {
 		this.nextNum = nextNum;
 	}
-	
-	
+	public String getServer() {
+		return server;
+	}
+	public void setServer(String server) {
+		this.server = server;
+	}
 }

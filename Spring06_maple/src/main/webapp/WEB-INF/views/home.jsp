@@ -18,20 +18,54 @@ a {
 	text-decoration: none;
 }
 div {
- 	border: 1px solid red; 
+/*  	border: 1px solid red;  */
 }
 .container {
 	height: 100vh;
- 	border: 1px solid black; 
+/*  	border: 1px solid black;  */
 }
 .board {
 	margin: 60px auto 0px auto;
 	heigth: 100%;
 	width: 82%;
- 	border: 1px solid green; 
+/*  	border: 1px solid green;  */
 }
 td a img {
 	margin: 0px 2px 3px 0px;
+}
+.page_numb {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+    padding-bottom: 180px;
+    text-align: center;
+}
+.cm_all_prev, .cm_prev, .cm_next, .cm_all_next {
+    vertical-align: middle;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+}
+.page_numb span a {
+    line-height: 0;
+    margin: 0;
+}
+.page_numb a:hover, .page_numb a.active {
+    color: #5894f9;
+    font-weight: bold;
+}
+.page_numb a {
+    line-height: 29px;
+    height: 28px;
+    width: auto;
+    min-width: 28px;
+    display: inline-block;
+    color: #888;
+    margin: 0 11px;
+    font-size: 15px;
+    vertical-align: top;
+    font-family: "Tahoma";
 }
 </style>
 </head>
@@ -71,19 +105,44 @@ td a img {
 		<div class="board">
 		<table class="table">
   <tbody>
-  <c:forEach var="i" begin="1" end="15">
+  <c:forEach var="tmp" items="${list}">
     <tr> 
-      <td style="width:50%;">Mark</td>
-      <td style="width:20%;"><a href=""><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/world_icon/icon_16.png">작성자</a></td>
-      <td>@mdo</td>
-      <td>ㅇㅇ</td>
-      <td>ㅇㅇ</td>
+      <td style="width:50%;">${tmp.writer}</td>
+      <td style="width:20%;"><a href=""><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/world_icon/icon_16.png">${tmp.title}</a></td>
+      <td style="width:8%">${tmp.agree}</td>
+      <td style="width:20%;">${tmp.regdate}</td>
+      <td>${tmp.viewCount}</td>
     </tr>
   </c:forEach>
   </tbody>
 </table>
 		</div>
 	</div>
+<div class="page_numb">
+	<c:if test="${startPageNum gt 5}">
+	<span class="cm_all_prev">
+		<a href="${pageContext.request.contextPath}/?pageNum=${startPageNum-5}"><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/cm_all_prev.png" alt="이전 10개"></a>
+	</span>
+	</c:if>
+	<c:if test="${pageNum ne 1}">
+	<span class="cm_prev">
+		<a href="${pageContext.request.contextPath}/?pageNum=${pageNum-1}"><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/cm_prev.png" alt="이전"></a>
+	</span>
+	</c:if>
+	<c:forEach var="i" begin="${startPageNum}" end="${endPageNum}">
+		<a class= "${pageNum eq i ? 'active' : ''}" href="${pageContext.request.contextPath}/?pageNum=${i}">${i}</a>
+	</c:forEach>
+	<c:if test="${pageNum lt endPageNum}">
+	<span class="cm_next">
+		<a href="${pageContext.request.contextPath}/?pageNum=${pageNum+1}"><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/cm_next.png"></a>
+	</span>
+	</c:if>
+	<c:if test="${endPageNum gt 5}">
+	<span class="cm_all_next">
+		<a href="${pageContext.request.contextPath}/?pageNum=${startPageNum-5}"><img src="https://ssl.nexon.com/s2/game/maplestory/renewal/common/cm_all_next.png"></a>
+	</span>
+	</c:if>
+</div>
 </div>
 </body>
 </html>

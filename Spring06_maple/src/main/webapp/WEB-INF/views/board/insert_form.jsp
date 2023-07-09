@@ -77,7 +77,7 @@
 			<input class="title form-control" name="title" type="text" placeholder="제목을 입력하세요"">
 			<input type="hidden" id="writer" name="writer" value="${id}">
 </div>
-	<textarea name="content" id="content" rows="10" name="content"></textarea>
+	<textarea name="content" id="content" rows="10"></textarea>
 		<div class="buttonSet">
 			<button type="reset" id="resetBtn">취소</button>
 			<button type="submit" onclick="submitContents(this)" id="submitBtn">등록</button>
@@ -142,25 +142,28 @@
 	<script>
 		$("#submitBtn").on("click",(e)=>{
 			e.preventDefault();
-	console.log($(".title").val());
-	console.log($("#writer").val());
-	console.log($("#content").val());
-			const board_info = {
-					"title": $(".title").val(),
-					"writer": $("#writer").val(),
-					"content": $("#content").val()
+			const boardInfo = {
+					"title":document.querySelector(".title").value,
+					"writer":document.querySelector("#writer").value,
+					"content":document.querySelector("#content").value
 			}
-			const jsonBoardInfo = JSON.stringify(board_info);
+			const jsonBoardInfo = JSON.stringify(boardInfo);
 			fetch("${pageContext.request.contextPath}/board/insert", {
-				method: "POST",
-				headers: {
-				    "Content-Type": "application/json"
+				method:"POST",
+				headers:{
+					 "Content-Type": "application/json"
 		    	},
-		    	body: jsonBoardInfo
+		    	body:jsonBoardInfo
 			})
-			.then(res=>res.json)
+			.then(res=>res.json())
 			.then(data=>{
 				console.log(data);
+				if(\${not empty msg}) {
+					alert("\${msg}");
+				}
+				else {
+					location.href = "${pageContext.request.contextPath}/";
+				}
 			})
 		})
 	</script>		
